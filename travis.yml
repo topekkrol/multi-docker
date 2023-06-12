@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t top3k/react-test -f ./client/Dockerfile.dev ./client
+# w script dodajemy testy 
+script:
+  - docker run t0p3k/react-test npm test-- --coverage
+
+after_success:
+  - docker build -t t0p3k/multi-client ./client
+  - docker build -t t0p3k/multi-nginx ./nginx
+  - docker build -t t0p3k/multi-server ./server
+  - docker build -t t0p3k/multi-worker ./worker
+
+  -echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # to powyżej to logowanie do dockera
+  -docker push t0p3k/multi-client
+  -docker push t0p3k/multi-nginx
+  -docker push t0p3k/multi-server
+  -docker push t0p3k/multi-worker
