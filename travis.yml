@@ -6,7 +6,7 @@ before_install:
   - docker build -t top3k/react-test -f ./client/Dockerfile.dev ./client
 # w script dodajemy testy 
 script:
-  - docker run t0p3k/react-test npm test-- --coverage
+  - docker run -e CI=true t0p3k/react-test npm test
 
 after_success:
   - docker build -t t0p3k/multi-client ./client
