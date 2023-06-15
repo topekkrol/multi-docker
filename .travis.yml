@@ -20,3 +20,4 @@ after_success:
   -docker push t0p3k/multi-nginx
   -docker push t0p3k/multi-server
   -docker push t0p3k/multi-worker
+
