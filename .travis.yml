@@ -1,3 +1,4 @@
+language: generic
 sudo: required
 services:
   - docker
@@ -6,7 +7,7 @@ before_install:
   - docker build -t top3k/react-test -f ./client/Dockerfile.dev ./client
 # w script dodajemy testy 
 script:
-  - docker run -e CI=true t0p3k/react-test npm test
+  - docker run -e CI=true topekkrol/react-test npm test
 
 after_success:
   - docker build -t t0p3k/multi-client ./client
